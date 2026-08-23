@@ -87,7 +87,7 @@ def login(user: UserCreate, db: Session = Depends(get_db)):
 def add_vehicle(
     vehicle: VehicleCreate,
     db: Session = Depends(get_db),
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(require_admin)
 ):
     new_vehicle = Vehicle(
         make=vehicle.make,

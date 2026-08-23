@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class UserCreate(BaseModel):
@@ -11,5 +11,18 @@ class UserResponse(BaseModel):
     email: EmailStr
     role: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
+
+
+class VehicleCreate(BaseModel):
+    make: str
+    model: str
+    category: str
+    price: int
+    quantity: int
+
+
+class VehicleResponse(VehicleCreate):
+    id: int
+
+    model_config = ConfigDict(from_attributes=True)

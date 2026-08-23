@@ -397,36 +397,58 @@ After debugging and corrections, the complete test suite passed successfully.
 **12. Screenshots**
 
 The following screenshots demonstrate the main features of the completed application.
+## 12. Screenshots
 
-Login Page
+### Home Page
 
-The login interface allows customers and administrators to authenticate.
+The home page provides the main entry point to the Apex Motors vehicle inventory system.
 
-Customer Inventory
+![Home Page](docs/screenshots/home-page.png)
 
-The inventory page allows customers to browse, search, filter, and purchase vehicles.
+### Customer Inventory
 
-Admin Dashboard
+Customers can browse available vehicles, search the inventory, and filter vehicles by relevant attributes.
 
-The admin dashboard provides inventory statistics and vehicle management actions.
+![Customer Inventory](docs/screenshots/inventory_1.png)
 
-Add / Edit Vehicle
+![Customer Inventory](docs/screenshots/inventory_2.png)
 
-Administrators can add new vehicles and modify existing vehicle information.
+### Admin Dashboard
 
-Restock Vehicle
+Administrators can monitor inventory statistics, stock levels, inventory value, and vehicle management operations.
 
-Administrators can increase the available stock of a vehicle.
+![Admin Dashboard](docs/screenshots/admin_dashboard1.png)
 
-Swagger API
+![Admin Dashboard](docs/screenshots/admin_dashboard2.png)
 
-FastAPI Swagger documentation provides an interactive interface for testing REST API endpoints.
+### Edit Vehicle
 
-Test Results
+Administrators can update vehicle information including make, model, year, price, body type, color, fuel, transmission, mileage, stock, and vehicle image.
 
-The backend automated test suite completed successfully with:
+![Edit Vehicle](docs/screenshots/edit_vehicle.png)
 
-11 passed
+### Restock Vehicle
+
+Administrators can increase the available stock of a vehicle using the restock interface.
+
+![Restock Vehicle](docs/screenshots/restock.png)
+
+### Backend API
+
+The FastAPI backend provides REST API endpoints for authentication and vehicle inventory management.
+
+![Backend API](docs/screenshots/backend_1.png)
+
+![Backend API](docs/screenshots/backend_2.png)
+
+### Backend Test Results
+
+The automated backend tests validate authentication, vehicle management, inventory operations, and authorization.
+
+![Backend Test Results](docs/screenshots/backend_test_post.png)
+
+
+
 
 **13.Application Flow**
 Register

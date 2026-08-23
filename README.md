@@ -129,37 +129,43 @@ Administrators can:
 ## 4. System Architecture
 
 ```text
-                    ┌──────────────────────┐
-                    │      Customer        │
-                    │   / Administrator    │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   React Frontend     │
-                    │ TypeScript + Tailwind│
-                    └──────────┬───────────┘
-                               │
-                         REST API / HTTP
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    FastAPI Backend   │
-                    │ Authentication + API │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │      SQLAlchemy      │
-                    │         ORM          │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    SQLite Database   │
-                    │      dealership.db   │
-                    └──────────────────────┘
-5. Project Structure
+                     ┌──────────────────────┐
+                     │      Customer        │
+                     │   / Administrator    │
+                     └──────────┬───────────┘
+                                │
+                                ▼
+                     ┌──────────────────────┐
+                     │   React Frontend     │
+                     │ TypeScript + Tailwind│
+                     └──────────┬───────────┘
+                                │
+                           REST API / HTTP
+                                │
+                                ▼
+                     ┌──────────────────────┐
+                     │    FastAPI Backend   │
+                     │ Authentication + API │
+                     └──────────┬───────────┘
+                                │
+                                ▼
+                     ┌──────────────────────┐
+                     │      SQLAlchemy      │
+                     │         ORM          │
+                     └──────────┬───────────┘
+                                │
+                                ▼
+                     ┌──────────────────────┐
+                     │    SQLite Database   │
+                     │      dealership.db   │
+                     └──────────────────────┘
+```
+
+---
+
+## 5. Project Structure
+
+```text
 car-dealership-inventory/
 │
 ├── backend/
@@ -180,224 +186,299 @@ car-dealership-inventory/
 │   ├── package.json
 │   └── ...
 │
+├── docs/
+│   └── screenshots/
+│
 ├── .gitignore
 ├── README.md
+├── TEST_REPORT.md
 └── PROMPTS.md
+```
 
-6. Backend API
+---
+
+## 6. Backend API
+
 The backend is implemented using FastAPI and provides RESTful endpoints for authentication and vehicle management.
 
-**Authentication**
-**Register**
-POST /api/auth/register
+### Authentication
+
+#### Register
+
+**POST** `/api/auth/register`
+
 Registers a new customer account.
 
-Example request:
+**Example request:**
 
+```json
 {
   "email": "user@example.com",
   "password": "Test1234"
 }
+```
 
-Example response:
+**Example response:**
 
+```json
 {
   "id": 1,
   "email": "user@example.com",
   "role": "customer"
 }
+```
 
-**Login**
-POST /api/auth/login
+#### Login
+
+**POST** `/api/auth/login`
 
 Authenticates a user.
 
-**Vehicle APIs
-Get Vehicles**
-GET /api/vehicles
+### Vehicle APIs
+
+#### Get Vehicles
+
+**GET** `/api/vehicles`
 
 Returns the vehicles in the dealership inventory.
 
-**Add Vehicle**
-POST /api/vehicles
+#### Add Vehicle
+
+**POST** `/api/vehicles`
 
 Adds a new vehicle to the inventory.
 
-**Search Vehicles**
-GET /api/vehicles/search
+#### Search Vehicles
+
+**GET** `/api/vehicles/search`
 
 Searches the inventory based on vehicle information.
-**
-Update Vehicle**
-PUT /api/vehicles/{vehicle_id}
+
+#### Update Vehicle
+
+**PUT** `/api/vehicles/{vehicle_id}`
 
 Updates an existing vehicle.
 
-**Delete Vehicle**
-DELETE /api/vehicles/{vehicle_id}
+#### Delete Vehicle
+
+**DELETE** `/api/vehicles/{vehicle_id}`
 
 Deletes a vehicle from the inventory.
 
-**Purchase Vehicle**
-POST /api/vehicles/{vehicle_id}/purchase
+#### Purchase Vehicle
+
+**POST** `/api/vehicles/{vehicle_id}/purchase`
 
 Purchases a vehicle and decreases the available stock.
 
-**Restock Vehicle**
-POST /api/vehicles/{vehicle_id}/restock
+#### Restock Vehicle
+
+**POST** `/api/vehicles/{vehicle_id}/restock`
 
 Adds units to the inventory.
 
 Restocking is restricted to administrators.
 
-**7. Authentication and Authorization**
+---
+
+## 7. Authentication and Authorization
 
 The application uses authentication and role-based authorization to protect sensitive operations.
 
 Two roles are supported:
 
-customer
-admin
+- `customer`
+- `admin`
 
 Customers can browse and purchase vehicles.
 
 Administrators can perform inventory management operations such as:
 
-1.Adding vehicles
-2.Updating vehicles
-3.Deleting vehicles
-4.Restocking vehicles
+1. Adding vehicles
+2. Updating vehicles
+3. Deleting vehicles
+4. Restocking vehicles
 
 Protected API endpoints require valid authentication and appropriate authorization.
 
-**8. Database**
+---
+
+## 8. Database
 
 The backend uses SQLite with SQLAlchemy.
 
-User
-id
-email
-password
-role
-Vehicle
-id
-make
-model
-category
-price
-quantity
+### User
+
+- `id`
+- `email`
+- `password`
+- `role`
+
+### Vehicle
+
+- `id`
+- `make`
+- `model`
+- `category`
+- `price`
+- `quantity`
 
 The database provides persistent storage for application data during local execution.
 
-**9. Running the Project Locally**
-Prerequisites
+---
+
+## 9. Running the Project Locally
+
+### Prerequisites
 
 Install:
 
-Python 3.12+
-Node.js
-npm
-Git
-**Backend Setup**
+- Python 3.12+
+- Node.js
+- npm
+- Git
+
+### Backend Setup
 
 Open a terminal and navigate to the backend:
 
+```bash
 cd backend
+```
 
 Create a virtual environment:
 
+```bash
 python -m venv venv
+```
 
 Activate it on Windows:
 
+```bash
 venv\Scripts\activate
+```
 
 Install dependencies:
 
+```bash
 pip install -r requirements.txt
+```
 
 Start the FastAPI server:
 
+```bash
 uvicorn main:app --reload --port 8000
+```
 
 The backend will be available at:
 
+```text
 http://127.0.0.1:8000
-**Swagger API Documentation**
+```
+
+### Swagger API Documentation
 
 FastAPI provides interactive API documentation.
 
 Open:
 
+```text
 http://127.0.0.1:8000/docs
+```
 
 Swagger can be used to test the available REST API endpoints.
 
-**Frontend Setup**
+### Frontend Setup
 
 Open another terminal.
 
 Navigate to the frontend:
 
+```bash
 cd frontend
+```
 
 Install dependencies:
 
+```bash
 npm install
+```
 
 Start the development server:
 
+```bash
 npm run dev
+```
 
 The frontend will normally be available at:
 
+```text
 http://localhost:8080
-**10. Testing**
+```
+
+---
+
+## 10. Testing
 
 The backend uses Pytest for automated testing.
 
 The test suite covers:
 
-Authentication
-User registration
-User login
-Vehicle Operations
-Add vehicle
-Get all vehicles
-Search vehicles
-Update vehicle
-Delete vehicle
-Purchase vehicle
-Restock vehicle
-Authorization
-Customer cannot restock vehicles
-Customer cannot delete vehicles
+### Authentication
+
+- User registration
+- User login
+
+### Vehicle Operations
+
+- Add vehicle
+- Get all vehicles
+- Search vehicles
+- Update vehicle
+- Delete vehicle
+- Purchase vehicle
+- Restock vehicle
+
+### Authorization
+
+- Customer cannot restock vehicles
+- Customer cannot delete vehicles
 
 Run the complete test suite from the backend directory:
+
+```bash
 .\venv\Scripts\python.exe -m pytest -v
-Final Test Result
-11 passed
+```
+
+### Final Test Result
+
+**11 passed**
 
 All implemented automated tests passed successfully.
 
-**11. Test-Driven Development**
+---
+
+## 11. Test-Driven Development
+
 Testing was used during development to verify backend functionality.
 
 The test suite was used to identify and fix issues related to:
 
-Authentication
-Vehicle creation
-Vehicle updates
-Inventory operations
-Authorization
-Customer restrictions
+- Authentication
+- Vehicle creation
+- Vehicle updates
+- Inventory operations
+- Authorization
+- Customer restrictions
 
 After debugging and corrections, the complete test suite passed successfully.
 
-**12. Screenshots**
+---
+
+## 12. Screenshots
 
 The following screenshots demonstrate the main features of the completed application.
-## 12. Screenshots
 
 ### Home Page
 
@@ -447,10 +528,13 @@ The automated backend tests validate authentication, vehicle management, invento
 
 ![Backend Test Results](docs/screenshots/backend_test_post.png)
 
+---
 
+## 13. Application Flow
 
+### Customer Flow
 
-**13.Application Flow**
+```text
 Register
    ↓
 Login
@@ -464,8 +548,11 @@ Select Vehicle
 Purchase
    ↓
 Inventory Stock Decreases
+```
 
-**Administrator Flow**
+### Administrator Flow
+
+```text
 Login
    ↓
 Admin Dashboard
@@ -477,28 +564,36 @@ Add / Edit / Delete Vehicle
 Restock Vehicle
    ↓
 Monitor Stock Levels
-**14. AI-Assisted Development**
-**My AI Usage**
+```
+
+---
+
+## 14. AI-Assisted Development
+
+### My AI Usage
 
 AI tools were used as development assistants during the project.
 
-**AI Tools Used**
-ChatGPT
-Lovable
-How AI Was Used
+### AI Tools Used
+
+- ChatGPT
+- Lovable
+
+### How AI Was Used
 
 AI assistance was used for:
 
-Generating and improving code
-Debugging frontend and backend issues
-Troubleshooting API integration
-Designing UI components
-Improving error handling
-Creating and debugging automated tests
-Understanding FastAPI and React implementation details
-Preparing project documentation
-Reviewing implementation approaches
-Development Process
+- Generating and improving code
+- Debugging frontend and backend issues
+- Troubleshooting API integration
+- Designing UI components
+- Improving error handling
+- Creating and debugging automated tests
+- Understanding FastAPI and React implementation details
+- Preparing project documentation
+- Reviewing implementation approaches
+
+### Development Process
 
 AI-generated suggestions were reviewed, modified, and tested before being incorporated into the project.
 
@@ -506,52 +601,58 @@ The application was validated through local execution, API testing using Swagger
 
 Raw AI prompt logs and relevant AI conversations are documented separately in:
 
-PROMPTS.md
-**15. Version Control**
+`PROMPTS.md`
+
+---
+
+## 15. Version Control
 
 Git and GitHub were used for source-code management.
 
 Development changes were committed using descriptive commit messages.
 
-Repository
+### Repository
 
 https://github.com/prerana-23wh1a0410/car-dealership-inventory
 
-**16. Future Improvements**
+---
+
+## 16. Future Improvements
 
 Possible future enhancements include:
 
-Production deployment
-Cloud database integration
-Advanced analytics dashboard
-Vehicle image upload
-Sales history and reports
-Customer purchase history
-Pagination for large inventories
-Email notifications
-Advanced inventory forecasting
-17. Conclusion
+- Production deployment
+- Cloud database integration
+- Advanced analytics dashboard
+- Vehicle image upload
+- Sales history and reports
+- Customer purchase history
+- Pagination for large inventories
+- Email notifications
+- Advanced inventory forecasting
+
+---
+
+## 17. Conclusion
 
 The Car Dealership Inventory System provides a full-stack solution for managing dealership vehicles and inventory.
 
 The project combines:
 
-React frontend
-FastAPI REST API
-SQLite database
-SQLAlchemy ORM
-JWT authentication
-Role-based authorization
-Automated testing
+- React frontend
+- FastAPI REST API
+- SQLite database
+- SQLAlchemy ORM
+- JWT authentication
+- Role-based authorization
+- Automated testing
 
 The final backend test suite contains 11 tests, all of which pass successfully.
 
 The system demonstrates CRUD operations, authentication, authorization, inventory management, search functionality, purchasing, and restocking through an integrated web application.
 
-Submission Repository
+### Submission Repository
 
 GitHub:
+
 https://github.com/prerana-23wh1a0410/car-dealership-inventory
-
-
-

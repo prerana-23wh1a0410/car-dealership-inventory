@@ -52,8 +52,9 @@ import type {
 import { fallbackImageFor } from "./vehicle-images";
 
 export const API_BASE_URL: string =
-  (import.meta.env.VITE_API_URL as string | undefined) ??
-  "http://127.0.0.1:8000";
+  (import.meta.env["VITE_API_URL"] as string | undefined) ??
+  "https://apex-motors-backend.onrender.com";
+
 
 /* ------------------------------ token storage ------------------------------ */
 
@@ -162,11 +163,15 @@ async function request<T>(
   let res: Response;
 
   try {
-    res = await fetch(`${API_BASE_URL}${path}`, {
+    const requestInit:RequestInit = {
       method: options.method ?? "GET",
       headers,
-      body,
-    });
+    };
+    if(body!==undefined){
+      requestInit.body = body;
+    }
+    res = await fetch(`${API_BASE_URL}${path}`,requestInit);
+
   } catch {
     throw new ApiError(
       `Could not reach the server at ${API_BASE_URL}. Make sure the FastAPI backend is running.`,

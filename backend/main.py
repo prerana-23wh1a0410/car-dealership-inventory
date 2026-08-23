@@ -21,6 +21,31 @@ app.add_middleware(
 )
 
 Base.metadata.create_all(bind=engine)
+@app.post("/api/auth/create-admin")
+def create_admin(user: UserCreate, db: Session = Depends(get_db)):
+    existing_user = db.query(User).filter(User.email == user.email).first()
+
+    if existing_user:
+        raise HTTPException(
+            status_code=400,
+            detail="Email already registered"
+        )
+
+    new_admin = User(
+        email=user.email,
+        password=hash_password(user.password),
+        role="admin"
+    )
+
+    db.add(new_admin)
+    db.commit()
+    db.refresh(new_admin)
+
+    return {
+        "message": "Admin created successfully",
+        "email": new_admin.email,
+        "role": new_admin.role
+    }
 
 
 @app.get("/")
